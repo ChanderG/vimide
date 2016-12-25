@@ -11,4 +11,4 @@ RUN cd ~ && vim +PluginInstall +qall
 
 RUN cd ~ && vim +GoInstallBinaries +qall
 
-ENV GOPATH=/gopath:$GOPATH
+ENV GOPATH=/gopath:$GOPATH PATH=$PATH:/gopath/bin

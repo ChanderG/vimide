@@ -1,4 +1,4 @@
-syntax on 
+syntax on
 
 "line numbering that toggles between normal and relative
 autocmd InsertEnter * :set number
@@ -38,7 +38,7 @@ map <Enter> o<ESC>
 
 """setup vundle
 set nocompatible
-filetype off 
+filetype off
 
 set rtp^=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -47,7 +47,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 """CtrlP plugin
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 """License adder
 Plugin 'antoyo/vim-licenses'
@@ -111,7 +111,7 @@ map tn <Esc>;tabnew<CR>
 
 """ QuickScope plugin
 
-""" toggle with 
+""" toggle with
 nmap <leader>q <plug>(QuickScopeToggle)
 vmap <leader>q <plug>(QuickScopeToggle)
 
@@ -176,18 +176,29 @@ noremap <silent> X :SlimeSendCurrentLine<CR>
 """ vigode specfic configurations
 
 """ golang tabs as 4 spaces
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 """ Vim-go configurations
 " fix imports on formatting
 let g:go_fmt_command = "goimports"
 " run metalinter on save
 let g:go_metalinter_autosave = 1
+" To open the alternate file
+noremap <silent>ga :GoAlternate<CR>
 " use :AT to open the alternate file in new tab
 autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+" also with a simpler command
+noremap <silent>gA :AT<CR>
+" show info
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+" better guru path - need to check if it actually works
+" https://github.com/fatih/vim-go/issues/1037
+au FileType go silent exe "GoGuruScope " . go#package#ImportPath(expand('%:p:h')) . "..."
+" disable timeout when running GoTest
+let g:go_test_timeout=0
 
-""" Automcomplete settings
+""" Autocomplete settings
 set completeopt=longest,menu,menuone
 let g:neocomplete#enable_at_startup=1
-" have selection on first option                                                      
+" have selection on first option
 let g:neocomplete#enable_auto_select = 1
