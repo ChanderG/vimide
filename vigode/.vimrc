@@ -36,49 +36,50 @@ set tabstop=8
 "Use Enter to introduce new lines below w/o leaving normal mode
 map <Enter> o<ESC>
 
-"""setup vundle
-set nocompatible
-filetype off
-
-set rtp^=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-"""manage vundle
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/bundle')
 
 """CtrlP plugin
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 """License adder
-Plugin 'antoyo/vim-licenses'
+Plug 'antoyo/vim-licenses'
 
 """find ideal positions to jump to
-Plugin 'unblevable/quick-scope'
+Plug 'unblevable/quick-scope'
 
 """list of tags
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 """comment toggle
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 
 """slime for vim
-Plugin 'jpalardy/vim-slime'
+Plug 'jpalardy/vim-slime'
 
 """Documentation in browser
-Plugin 'keith/investigate.vim'
+Plug 'keith/investigate.vim'
 
 """Main go plugin
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 
-""" Snippets in golang
-""" Have not got working yet
-"Plugin 'SirVer/ultisnips'
+""" Snippets engine
+Plug 'SirVer/ultisnips'
+" snippets
+Plug 'honza/vim-snippets'
 
 """ simple Autocomplete for golang
-Plugin 'Shougo/neocomplete.vim'
+Plug 'Shougo/neocomplete.vim'
 
-call vundle#end()
-filetype plugin indent on
+""" More text objects
+Plug 'wellle/targets.vim'
+
+""" Sneak - medium distance motion
+Plug 'justinmk/vim-sneak'
+
+""" Avoid repeated movements
+Plug 'takac/vim-hardtime'
+
+call plug#end()
 
 "Ctrlp fuzzy finder : thanks to Robin Ward
 "for quick indexing by using git file listing => no files from gitignore, but untracked files
@@ -139,8 +140,6 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 " required to counter the effect of our mapping of <CR> in clist window
 
 """ A better escape
-inoremap <silent> <Up> <ESC><Up>
-inoremap <silent> <Down> <ESC><Down>
 inoremap <silent> <Left> <ESC><Left>
 inoremap <silent> <Right> <ESC><Right>
 
@@ -202,3 +201,14 @@ set completeopt=longest,menu,menuone
 let g:neocomplete#enable_at_startup=1
 " have selection on first option
 let g:neocomplete#enable_auto_select = 1
+
+" snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+""" vim-hardtime: avoid repeated movement keys
+let g:hardtime_default_on = 1
+let g:list_of_normal_keys = ["<UP>", "<DOWN>"]
+let g:hardtime_timeout = 2000
+let g:hardtime_maxcount = 2
